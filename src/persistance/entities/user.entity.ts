@@ -10,7 +10,7 @@ import {
   name: 'USERS',
   engine: 'InnoDB',
 })
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   id: string;
 
@@ -33,7 +33,7 @@ export class User {
   @Column('varchar', {
     name: 'password',
     nullable: false,
-    unique: true,
+    unique: false,
     length: 255,
   })
   password: string;

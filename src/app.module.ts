@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './persistance/entities/user.entity';
+import { UserEntity } from './persistance/entities/user.entity';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { User } from './persistance/entities/user.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [User],
+      entities: [UserEntity],
       autoLoadEntities: process.env.NODE_ENV === 'development' ? true : false,
       synchronize: process.env.NODE_ENV === 'development' ? true : false,
       logging: process.env.NODE_ENV === 'development' ? 'all' : false,

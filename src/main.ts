@@ -8,6 +8,7 @@ async function bootstrap() {
         ? ['log', 'debug', 'error', 'verbose', 'warn']
         : ['error', 'warn', 'debug'],
   });
+	app.setGlobalPrefix(process.env.API_VERSION);
   await app.listen(process.env.API_PORT);
 }
 bootstrap();
