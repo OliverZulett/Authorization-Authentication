@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -9,6 +10,7 @@ async function bootstrap() {
         : ['error', 'warn', 'debug'],
   });
 	app.setGlobalPrefix(process.env.API_VERSION);
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.API_PORT);
 }
 bootstrap();
