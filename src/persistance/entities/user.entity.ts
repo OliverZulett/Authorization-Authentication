@@ -31,12 +31,11 @@ export class UserEntity {
   username: string;
 
   @Column('varchar', {
-    name: 'password',
+    name: 'hash',
     nullable: false,
-    unique: false,
     length: 255,
   })
-  password: string;
+  hash: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from '../../persistance/repositories/user.repository';
+import { BcryptService } from '../../shared/services/bcrypt/bcrypt.service';
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { UserRepository } from '../../persistance/repositories/user.repository';
     ])
   ],
   controllers: [AuthController],
-  providers: [AuthService]
+  providers: [AuthService, BcryptService]
 })
 export class AuthModule {}

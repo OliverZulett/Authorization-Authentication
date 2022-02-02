@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './persistance/entities/user.entity';
 import { ResourcesModule } from './resources/resources.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { ResourcesModule } from './resources/resources.module';
       synchronize: process.env.NODE_ENV === 'development' ? true : false,
       logging: process.env.NODE_ENV === 'development' ? 'all' : false,
     }),
-    ResourcesModule
+    ResourcesModule,
+    SharedModule
   ],
 })
 export class AppModule {}
