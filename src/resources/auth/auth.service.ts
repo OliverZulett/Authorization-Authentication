@@ -3,7 +3,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  NotImplementedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { UserRepository } from '../../persistance/repositories/user.repository';
 import { UserSingInDto } from './dto/user-singIn.dto';
@@ -20,7 +20,21 @@ export class AuthService {
   ) {}
 
   async signIn(userSingInDto: UserSingInDto) {
-    throw new NotImplementedException('Method not implemented');
+    const userFound = await this.userRepository.findUserByEmail(userSingInDto.email);
+    if (!userFound) {
+      throw new NotFoundException(`User dosen't exists`);
+    }
+    let passwordIdValid = false;
+    try {
+      passwordIdValid = await this.bcryptService.isMatch(userSingInDto.password, userFound.hash);
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException('Error validating password with bcrypt')
+    }
+    if (passwordIdValid) {
+      return true;
+    }
+    throw new BadRequestException('Invalid password');
   }
 
   async signUp(userSingUpDto: UserSingUpDto) {
