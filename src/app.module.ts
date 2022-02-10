@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './persistance/entities/user.entity';
 import { ResourcesModule } from './resources/resources.module';
 import { SharedModule } from './shared/shared.module';
+import { RoleEntity } from './persistance/entities/role.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,12 +19,14 @@ import { SharedModule } from './shared/shared.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
+      entities: [UserEntity, RoleEntity],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV === 'development' ? true : false,
       logging: process.env.NODE_ENV === 'development' ? 'all' : false,
     }),
     ResourcesModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
 })
 export class AppModule {}

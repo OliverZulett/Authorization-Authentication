@@ -2,8 +2,8 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-  Logger,
   NotFoundException,
+  Logger,
 } from '@nestjs/common';
 import { UserRepository } from '../../persistance/repositories/user.repository';
 import { UserSingInDto } from './dto/user-singIn.dto';

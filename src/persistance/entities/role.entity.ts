@@ -1,45 +1,36 @@
-import { RoleEntity } from './role.entity';
+import { UserEntity } from './user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({
-  name: 'USERS',
+  name: 'ROLES',
   engine: 'InnoDB',
 })
-export class UserEntity {
+export class RoleEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   id: string;
 
   @Column('varchar', {
-    name: 'email',
+    name: 'type',
     nullable: false,
     unique: true,
-    length: 255,
+    length: 50,
   })
-  email: string;
+  type: string;
 
   @Column('varchar', {
-    name: 'user_name',
-    nullable: false,
-    unique: true,
+    name: 'description',
+    nullable: true,
     length: 255,
   })
-  username: string;
-
-  @Column('varchar', {
-    name: 'hash',
-    nullable: false,
-    length: 255,
-  })
-  hash: string;
+  description: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -47,9 +38,6 @@ export class UserEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @ManyToOne(() => RoleEntity, role => role.user)
-  @JoinColumn({
-    name: 'role_id',
-  })
-  role: RoleEntity;
+  @OneToMany(() => UserEntity, user => user.role)
+  user: UserEntity;
 }
