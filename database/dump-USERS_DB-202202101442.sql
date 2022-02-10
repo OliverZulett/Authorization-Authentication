@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `ROLES`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ROLES` (
   `id` varchar(36) NOT NULL,
-  `type` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `IDX_e1b88b819af1a481c71510a693` (`type`)
+  UNIQUE KEY `IDX_130b69a58da8bb01c373f8ca3d` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -72,7 +72,6 @@ CREATE TABLE `USERS` (
 
 LOCK TABLES `USERS` WRITE;
 /*!40000 ALTER TABLE `USERS` DISABLE KEYS */;
-INSERT INTO `USERS` VALUES ('102d430c-7325-4ff3-a247-9ee29d0bc369','Helena_Turner63@hotmail.com','Helena_Turner63@hotmail.com','$2b$10$bcI9n3lrhTflEcE3r5tKQe.InOcSxY1TkUrMYS0ASfXVTUSvEeSl.','2022-02-10 16:10:07.600417','2022-02-10 16:16:22.008012','e429512c-7a19-403a-90d2-60f2283f12a8');
 /*!40000 ALTER TABLE `USERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,4 +88,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-10 12:35:35
+-- Dump completed on 2022-02-10 14:42:54

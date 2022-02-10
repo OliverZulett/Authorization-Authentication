@@ -5,7 +5,6 @@ import { UserEntity } from './persistance/entities/user.entity';
 import { ResourcesModule } from './resources/resources.module';
 import { SharedModule } from './shared/shared.module';
 import { RoleEntity } from './persistance/entities/role.entity';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,7 +25,6 @@ import { AuthModule } from './auth/auth.module';
     }),
     ResourcesModule,
     SharedModule,
-    AuthModule
   ],
 })
 export class AppModule {}

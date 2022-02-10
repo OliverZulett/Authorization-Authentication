@@ -22,6 +22,7 @@ export class UserRepository extends Repository<UserEntity> {
     try {
       return await this.createQueryBuilder('USERS')
       .where('USERS.email = :value', {value: email})
+      .leftJoinAndSelect('USERS.role', 'ROLES')
       .getOne();
     } catch (error) {
       this.logger.error(error);

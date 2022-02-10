@@ -18,12 +18,12 @@ export class RoleEntity {
   id: string;
 
   @Column('varchar', {
-    name: 'type',
+    name: 'name',
     nullable: false,
     unique: true,
     length: 50,
   })
-  type: string;
+  name: string;
 
   @Column('varchar', {
     name: 'description',

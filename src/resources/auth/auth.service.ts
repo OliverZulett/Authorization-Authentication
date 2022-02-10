@@ -11,6 +11,7 @@ import { UserSingUpDto } from './dto/user-singUp.dto';
 import { BcryptService } from '../../shared/services/bcrypt/bcrypt.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './models/user.model';
+import { RoleRepository } from '../../persistance/repositories/role.repository';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
 
   constructor(
     private readonly userRepository: UserRepository,
+    private readonly roleRepository: RoleRepository,
     private readonly bcryptService: BcryptService,
     private readonly jwtService: JwtService,
   ) {}
@@ -34,7 +36,12 @@ export class AuthService {
       userFound.hash,
     );
     if (passwordIsValid) {
-      return this.getAccessToken(userFound);
+      return this.getAccessToken({
+        id: userFound.id,
+        name: userFound.username,
+        email: userFound.email,
+        role: userFound.role.name,
+      });
     }
     throw new BadRequestException('Invalid password');
   }
@@ -50,12 +57,19 @@ export class AuthService {
       throw new BadRequestException('Email already exists');
     }
     const passwordHashed = await this.hashPassword(userSingUpDto.password);
+    const defaultRole = await this.roleRepository.findDefaultRole();
     try {
-      const userCreated = await this.userRepository.save({
+      const userFound = await this.userRepository.save({
         ...userSingUpDto,
         hash: passwordHashed,
+        role: defaultRole,
       });
-      return this.getAccessToken(userCreated);
+      return this.getAccessToken({
+        id: userFound.id,
+        name: userFound.username,
+        email: userFound.email,
+        role: defaultRole.name,
+      });
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException('Error creating new user in DB');
@@ -84,11 +98,7 @@ export class AuthService {
 
   private getAccessToken(user: User) {
     try {
-      const accessToken = this.jwtService.sign({
-        user_id: user.id,
-        user_name: user.username,
-        user_email: user.email,
-      });
+      const accessToken = this.jwtService.sign(user);
       return { access_token: accessToken };
     } catch (error) {
       this.logger.error(error);
