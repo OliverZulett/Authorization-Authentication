@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path';
-import { Basic } from './strategies/basic';
 import { BasicStrategy } from './strategies/basic/basic-strategy';
 import * as fs from 'fs';
 import { JwtStrategy } from './strategies/jwt/jwt-strategy';
@@ -23,6 +22,6 @@ const PUBLIC_KEY = fs.readFileSync(join(process.cwd(), '/certs/publickey.crt'));
       },
     }),
   ],
-  providers: [JwtStrategy, Basic, BasicStrategy],
+  providers: [JwtStrategy, BasicStrategy],
 })
 export class AuthModule {}
