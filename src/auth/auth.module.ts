@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './strategies/jwt-strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path';
+import { Basic } from './strategies/basic';
+import { BasicStrategy } from './strategies/basic/basic-strategy';
 import * as fs from 'fs';
+import { JwtStrategy } from './strategies/jwt/jwt-strategy';
 
-const PRIVATE_KEY = fs.readFileSync(
-  join(process.cwd(), '/certs/keypair.pem')
-);
+const PRIVATE_KEY = fs.readFileSync(join(process.cwd(), '/certs/keypair.pem'));
 
-const PUBLIC_KEY = fs.readFileSync(
-  join(process.cwd(), '/certs/publickey.crt')
-);
+const PUBLIC_KEY = fs.readFileSync(join(process.cwd(), '/certs/publickey.crt'));
 
 @Module({
   imports: [
@@ -22,9 +20,9 @@ const PUBLIC_KEY = fs.readFileSync(
       signOptions: {
         expiresIn: '1h',
         algorithm: 'RS256',
-      }
-    })
+      },
+    }),
   ],
-  providers: [JwtStrategy]
+  providers: [JwtStrategy, Basic, BasicStrategy],
 })
 export class AuthModule {}

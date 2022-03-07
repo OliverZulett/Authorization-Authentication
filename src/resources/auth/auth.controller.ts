@@ -11,7 +11,7 @@ export class AuthController {
   singUp(@Body() userSingUpDto: UserSingUpDto) {
     return this.authService.signUp(userSingUpDto);
   }
-  
+
   @Get('sign-in')
   singIn(@Body() userSingInDto: UserSingInDto) {
     return this.authService.signIn(userSingInDto);

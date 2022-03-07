@@ -1,19 +1,22 @@
-import { IsEmail, IsNotEmpty, IsString, Matches } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserSingInDto {
-  @IsEmail({}, {
-    message: 'Invalid Email'
-  })
+  @IsEmail(
+    {},
+    {
+      message: 'Invalid Email',
+    },
+  )
   @IsNotEmpty({
-    message: 'Email is required'
+    message: 'Email is required',
   })
   email: string;
 
   @IsString({
-    message: 'Invalid password'
+    message: 'Invalid password',
   })
   @IsNotEmpty({
-    message: 'Password is required'
+    message: 'Password is required',
   })
   password: string;
 }

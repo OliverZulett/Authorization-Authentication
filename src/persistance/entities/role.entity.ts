@@ -4,7 +4,6 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -38,6 +37,6 @@ export class RoleEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @OneToMany(() => UserEntity, user => user.role)
+  @OneToMany(() => UserEntity, (user) => user.role)
   user: UserEntity;
 }
